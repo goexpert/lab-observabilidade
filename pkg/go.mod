@@ -1,4 +1,4 @@
-module github.com/goexpert/lab-observabilidade
+module github.com/goexpert/lab-observabilidade/pkg
 
 go 1.22.8
 

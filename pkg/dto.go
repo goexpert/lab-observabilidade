@@ -1,4 +1,4 @@
-package lab
+package pkg
 
 type CepDto struct {
 	Cep string
