@@ -1,0 +1,6 @@
+[submodule "service-a"]
+	path = lab-observabilidade-service-a
+	url = https://github.com/goexpert/lab-observabilidade-service-a.git
+[submodule "service-b"]
+	path = lab-observabilidade-service-b
+	url = https://github.com/goexpert/lab-observabilidade-service-b.git
