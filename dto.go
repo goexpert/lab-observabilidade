@@ -13,3 +13,10 @@ type LogradouroDto struct {
 	Localidade string `json:"localidade"`
 	Erro       string `json:"erro"`
 }
+
+type LocaleWeatherDto struct {
+	Locale string  `json:"city"`
+	TempC  float64 `json:"temp_c"`
+	TempF  float64 `json:"temp_f"`
+	TempK  float64 `json:"temp_k"`
+}

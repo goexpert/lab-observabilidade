@@ -29,6 +29,7 @@ services:
       - SB_PORT=8080
     volumes:
       - ../lab-observabilidade-service-a:/app
+      - ./:/app/pkglab
     command: ["sleep", "infinity"]
     # command: >
     #   sh -c "
@@ -50,6 +51,7 @@ services:
       - WEATHER_TOKEN=d5a4cb1d02924fda961141910240111
     volumes:
       - ../lab-observabilidade-service-b:/app
+      - ./:/app/pkglab
     command: ["sleep", "infinity"]
     # command: >
     #   sh -c "
