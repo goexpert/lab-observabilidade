@@ -8,16 +8,16 @@ import (
 	"net/http"
 )
 
-type webClient struct {
+type WebClient struct {
 	request *http.Request
 	client  *http.Client
 }
 
-func (w *webClient) Request() *http.Request {
+func (w *WebClient) Request() *http.Request {
 	return w.request
 }
 
-func NewWebclient(ctx context.Context, client *http.Client, method string, url string, query map[string]string) (*webClient, error) {
+func NewWebclient(ctx context.Context, client *http.Client, method string, url string, query map[string]string) (*WebClient, error) {
 
 	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
@@ -38,20 +38,17 @@ func NewWebclient(ctx context.Context, client *http.Client, method string, url s
 		req.URL.RawQuery = q.Encode()
 	}
 
-	return &webClient{
+	return &WebClient{
 		request: req,
 		client:  client,
 	}, nil
 }
 
-func (w *webClient) Do(ret func([]byte) error) error {
-
-	slog.Debug("execute server]", "host", w.request.URL.Host)
-	slog.Debug("execute url]", "url", w.request.URL)
+func (w *WebClient) Do(ret func([]byte) error) error {
 
 	resp, err := w.client.Do(w.request)
 	if err != nil {
-		slog.Debug("falha na execução]", "error", err.Error())
+		slog.Error("falha na execução", "error", err.Error())
 		return errors.New("erro na exeução do request: " + w.request.URL.Host)
 	}
 	defer resp.Body.Close()
@@ -61,18 +58,13 @@ func (w *webClient) Do(ret func([]byte) error) error {
 		body = nil
 	}()
 	if err != nil {
-		slog.Error("[falha no read]", "error", err.Error())
+		slog.Error("falha no read", "error", err.Error())
 		return err
 	}
-
-	slog.Debug("executa status", "status", resp.Status)
-	slog.Debug("executa statuscode]", "code", resp.StatusCode)
 
 	if resp.StatusCode != http.StatusOK {
 		return errors.New(w.request.URL.Host + ": " + http.StatusText(resp.StatusCode))
 	}
-
-	slog.Debug("[executa body]", "body", body)
 
 	return ret(body)
 }
