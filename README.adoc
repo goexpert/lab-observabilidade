@@ -1,5 +1,29 @@
 = Project github.com/goexpert/lab-observabilidade
 
+== Solução
+
+Para a reprodução em ambiente local, basta executar o seguinte:
+
+[source,shell]
+----
+git clone https://github.com/goexpert/labobservabilidade.git --recurse-submodules
+
+docker compose up -d
+
+curl --request POST \
+  --data '{"cep":"03063000"}' \
+  --header 'Content-Type: application/json' \
+  http://localhost:8080/cep
+----
+
+O resultado será algo do tipo:
+
+[source,shell]
+----
+{"city":"São Paulo","temp_c":23.4,"temp_f":74.1,"temp_k":296.4}
+----
+
+
 == Objetivo:
 
 Desenvolver um sistema em Go que receba um CEP, identifica a cidade e retorna o clima atual (temperatura em graus celsius, fahrenheit e kelvin) juntamente com a cidade. Esse sistema deverá implementar OTEL(Open Telemetry) e Zipkin.
